@@ -1,11 +1,6 @@
-to do: 
-x1. replace dotenv
-x2. create error message for "incorrect locale information provided" error
-x3. DisplayAggregated -> make data more readable
-x4. ChartAggregate
-	*put between TransactionTable and Aggregated?
-	*render chart space only when data exists
-5. Proptypes
-6. Revise readme
-7. clean outdated files
-8. localstorage
+## **Coin Viz tools**
+### **Coin Quote**
+Input cryptocurrency transactions from past dates to calculate total and weighted average costs, and profit/loss. Individual transactions are recorded separately in a table.
+
+### **24Hr volume chart**
+Shows cryptocurrency-fiat volume from the past 24 hours. Quick reference to compare fiat volumes (in fiat volume) for various cryptocurrencies.
