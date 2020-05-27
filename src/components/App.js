@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 // components
 import { App24HourVol } from './app24HourVol/App24HourVol';
@@ -42,12 +42,15 @@ function App() {
 			<ThemeProvider theme={getTheme(theme, darkMode)}>
 				<CssBaseline />
 				<DimensionContext.Provider value={{chartDimensions, setChartDimensions}}>
-					<Router>
+					{/* <Router basename="/coinviz"> */}
 						<div className={classes.app}>
-							<Route exact path="/" render={() => <App24HourVol darkMode={darkMode} setDarkMode={setDarkMode} />} />
-							<Route path="/coinquoteapp" render={() => <AppCoinQuote darkMode={darkMode} setDarkMode={setDarkMode} />} />
+							<Route path="/24hrvolume" render={() => <App24HourVol darkMode={darkMode} setDarkMode={setDarkMode} />} />
+							<Route path="/coinquote" render={() => <AppCoinQuote darkMode={darkMode} setDarkMode={setDarkMode} />} />
+							<Switch>
+								<Redirect exact from="/" to="/coinquote" />
+							</Switch>
 						</div>
-					</Router>
+					{/* </Router> */}
 				</DimensionContext.Provider>
 			</ThemeProvider>
 		</ThemeContext.Provider>
