@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
 
 // components
 import { Navbar, AppTitle } from "../sharedComponents/navigation";
@@ -44,7 +45,7 @@ export const App24HourVol = () => {
 		getApiData(cryptoList, fiatList)
 			.then(res => setData(res));
 	}, []);
-
+	
 	return (
 		<>
 			<Navbar 

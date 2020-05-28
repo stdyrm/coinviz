@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from 'uuid';
+import axios from "axios";
 
 // components
 import { InputActionButtons } from "./InputActionButtons";
@@ -72,6 +73,8 @@ export const TransactionCard = props => {
 	const classes = useStyles(props);
 
 	const calculateCardData = (card) => {
+		// axios.post("https://localhost:5000/")
+
 		getApiData(card)
 			.then(res => {
 				const id = uuidv4();
