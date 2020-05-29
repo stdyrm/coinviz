@@ -5,11 +5,11 @@ export const getApiData = async (payload) => {
 	const currTs = Math.round(new Date().getTime() / 1000);
 
 	const response = await axios.all([
-		axios.post("http://localhost:5000/getcoinquote", { 
+		axios.post("/getcoinquote", { 
 			payload: payload, 
 			timestamp: ts 
 		}),
-		axios.post("http://localhost:5000/getcoinquote", { 
+		axios.post("/getcoinquote", { 
 			payload: payload, 
 			timestamp: currTs
 		})

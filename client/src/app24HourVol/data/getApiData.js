@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getApiData = async (cryptoList, fiatList) => {
-	return axios.post("http://localhost:5000/getvolume24hr", {
+	return axios.post("/getvolume24hr", {
 			cryptoList,
 			fiatList
 		})
