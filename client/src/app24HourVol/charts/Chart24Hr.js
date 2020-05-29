@@ -7,54 +7,54 @@ import * as d3 from 'd3';
 // components
 import { Bars24Hr } from "./Bars24Hr";
 import { Labels24Hr } from './Labels24Hr';
-import { Overlay } from '../../sharedComponents/charts';
+import { Overlay } from './Overlay';
+
+// context
+import { DimensionsContext } from "../context/DimensionsContext";
 
 // params
 import { chartParams, labelParams } from "../appParams";
 
 // styles
-import { makeStyles } from '@material-ui/core/styles';
+import { useMediaQuery } from "@material-ui/core";
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const wrapper = {
 	wrapperWidth: window.innerWidth * .9,
-	wrapperHeight: window.innerHeight * .9,
+	wrapperHeight: window.innerHeight * .7,
 	margin: {
 	  top: 50,
-	  right: 80,
 	  bottom: 60,
-	  left: 110,
+	  right: window.innerWidth * .05,
+	  left: window.innerWidth * .1,
 	},
 };
   
-  const bounds = {
+const bounds = {
 	width: wrapper.wrapperWidth - wrapper.margin.left - wrapper.margin.right,
 	height: wrapper.wrapperHeight - wrapper.margin.top - wrapper.margin.bottom,
 };
 
-const useStyles = makeStyles((theme) => ({
-	chartWrapper: {
-		width: "100%",
-		height: "100%",
-		position: "relative",
-	},
-	chartBounds: {
-		position: "relative",
-		width: "100%",
-		height: "100%",
-		backgroundColor: "red",
-	},
-	chartBar: {
-		height: "100%",
-		width: "100%",
-		position: "relative",
-	},
-	axes: {
-		color: theme.palette.text.primary,
-	},
-}));
-
 export const Chart24Hr = (props) => {
 	const { data, fiat } = props;
+	const [dim, setDim] = useState({...wrapper, ...bounds});
+	const { wrapperHeight, wrapperWidth, margin, height, width } = dim;
+
+	const theme = useTheme();
+
+	const useStyles = makeStyles((theme) => ({
+		chartWrapper: {
+			width: "100%",
+			height: "100%",
+			position: "relative",
+		},
+		chartBounds: {
+			position: "absolute",
+		},
+		axes: {
+			color: theme.palette.text.primary,
+		},
+	}));
 	
 	// new state
 	const xAxisRef = useRef(null);
@@ -63,18 +63,12 @@ export const Chart24Hr = (props) => {
 
 	// styles
 	const classes = useStyles();
-	const { wrapperHeight, wrapperWidth, margin } = wrapper;
-	const { height, width } = bounds;
 
 	const renderOverlay = (
 		<Overlay 
 			scales={scales} 
-			height={height}
-			width={width}
-			margin={margin}
 			data={data}
 			fiat={fiat}
-			// {...props}
 			transform={`translate(${margin.left}, ${margin.top})`}
 		/>
 	);
@@ -93,7 +87,7 @@ export const Chart24Hr = (props) => {
 		setScales({
 			xScale: xScale,
 			yScale: yScale
-		})
+		});
 
 		// Axes
 		const xAxisGenerator = d3.axisBottom().scale(xScale);
@@ -111,11 +105,14 @@ export const Chart24Hr = (props) => {
 	}, [data, width, height]);
 
 	return (
-		<>
+		<DimensionsContext.Provider value={{dim, setDim}} > 
 			<svg 
-				id="wrapper" 
+				id="wrapper"
 				className={classes.chartWrapper}
+				// height={height}
+				// width={width}
 				viewBox={`0 0 ${wrapperWidth} ${wrapperHeight}`}
+				
 			>
 				<Labels24Hr 
 					fiat={fiat} 
@@ -125,7 +122,7 @@ export const Chart24Hr = (props) => {
 				/>
 				{data
 					? <g 
-						id="bounds" 
+						id="bounds"
 						transform={`translate(${margin.left}, ${margin.top})`}
 						className={classes.chartBounds}
 					>
@@ -140,8 +137,6 @@ export const Chart24Hr = (props) => {
 									data={data}
 									scales={scales}
 									chartParams={chartParams}
-									bounds={bounds}
-									className={classes.chartBar}
 								/>
 							}
 						</g>
@@ -149,7 +144,7 @@ export const Chart24Hr = (props) => {
 				}
 				{scales && renderOverlay}
 			</svg>
-		</>
+		</DimensionsContext.Provider>
 	)
 };
 

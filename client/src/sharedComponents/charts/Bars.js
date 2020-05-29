@@ -12,10 +12,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const Bars = (props) => {
-	const { data, chartParams, scales, bounds, classes, innerPropsRect } = props;
+	const { data, chartParams, scales, height, width, classes, innerPropsRect } = props;
 	const { xScale, yScale } = scales;
 	const { xParam, yParam } = chartParams;
-	const { height } = bounds;
 
 	const defaultClasses = useStyles();
 
@@ -47,7 +46,9 @@ Bars.propTypes = {
 	chartParams: PropTypes.object.isRequired,
 	data: PropTypes.array.isRequired,
 	scales: PropTypes.object,
-	bounds: PropTypes.object.isRequired
+	height: PropTypes.number.isRequired,
+	classes: PropTypes.object,
+	innerPropsRect: PropTypes.object
 };
 
 Bars.defaultProps = {

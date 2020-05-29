@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+
+// context
+import { DimensionsContext } from "../context/DimensionsContext";
 
 // styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,12 +21,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const Labels24Hr = props => {
-	const { fiat, labelParams, wrapper, bounds } = props;
+	const { fiat, labelParams } = props;
 	const { chartTitle, yLabel, xLabel } = labelParams;
+	const { dim } = useContext(DimensionsContext);
+	const { height, width, margin } = dim;
 
     const classes = useStyles();
-    const {  margin } = wrapper;
-    const { height, width } = bounds;
 
     return (
         <>
@@ -63,6 +66,4 @@ Labels24Hr.propTypes = {
 		yLabel: PropTypes.string.isRequired,
 		xLabel: PropTypes.string.isRequired
 	}), 
-	wrapper: PropTypes.object,
-	bounds: PropTypes.object
 };

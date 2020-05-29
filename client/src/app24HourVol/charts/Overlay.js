@@ -1,5 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import * as d3 from 'd3';
+
+// context
+import { DimensionsContext } from "../context/DimensionsContext";
 
 // styles
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,18 +12,26 @@ const useStyles = makeStyles((theme) => ({
 		stroke: theme.palette.type === 'light' ? theme.palette.primary.dark : theme.palette.primary.light,
 	},
 	focusXValue: {
-		fontSize: '.8rem',
-		fill: theme.palette.text.primary,
-	},
-	focusYValue: {
 		fontSize: '.7rem',
 		fill: theme.palette.text.primary,
+		[theme.breakpoints.up("sm")]: {
+			fontSize: ".8rem"
+		},
+	},
+	focusYValue: {
+		fontSize: '.6rem',
+		fill: theme.palette.text.primary,
+		[theme.breakpoints.up("sm")]: {
+			fontSize: ".7rem"
+		},
 	},
 }))
 
 export const Overlay = (props) => {
-	const { height, width, margin, data, transform, scales } = props;
+	const { data, transform, scales } = props;
 	const { xScale } = scales;
+	const { dim } = useContext(DimensionsContext);
+	const { height, width, margin } = dim;
 
 	const focusRef = useRef(null);
 	const overlayRef = useRef(null);

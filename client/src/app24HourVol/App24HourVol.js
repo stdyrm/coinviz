@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from "axios";
 
 // components
 import { Navbar, AppTitle } from "../sharedComponents/navigation";
@@ -12,7 +11,7 @@ import { getApiData } from "./data/getApiData";
 import { navbarParams, appMenuParams } from "./appParams";
 
 // style
-import { Grid } from '@material-ui/core';
+import { Grid, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // util
@@ -26,15 +25,13 @@ export const App24HourVol = () => {
 			marginTop: theme.spacing(2),
 		},
 		chartWrapper: {
-			textAlign: "center",
-		},
-		gridItem: {
-			width: "100%",
-			height: "100%",
-			padding: 0,
-			margin: 0,
-			[theme.breakpoints.up("xl")]: {
-				width: "50%",
+			marginTop: theme.spacing(2),
+			display: "flex",
+			justifyContent: "center",
+			height: "40vh",
+			width: "95vw",
+			[theme.breakpoints.up("md")]: {
+				height: "70vh"
 			}
 		},
 	}));
@@ -53,17 +50,17 @@ export const App24HourVol = () => {
 				appMenuParams={appMenuParams}
 			/>
 			<div className={classes.appWrapper}>
+				<Toolbar />
 				<AppTitle title="Volume Past 24hr" variant="h6" divider="none" />
 				<Grid container className={classes.chartWrapper}>
 					{data
 						&& Object.keys(fiatList).map(fiat => (
-								<Grid item key={fiat} className={classes.gridItem}>
-									<Chart24Hr
-										data={data[fiat]}
-										fiat={fiat}
-										cryptoList={Object.keys(cryptoList)} 
-									/>
-								</Grid>
+							<Chart24Hr
+								key={fiat}
+								data={data[fiat]}
+								fiat={fiat}
+								cryptoList={Object.keys(cryptoList)} 
+							/>
 					))}
 				</Grid>
 			</div>
