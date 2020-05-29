@@ -106,7 +106,7 @@ export const Navbar = props => {
                 <AppTitle
                     title="CoinViz"
                     divider="none"
-					href="/coinviz"
+					href="/"
 					variant="h4"
 					className={classes.title}
                 />

@@ -7,10 +7,10 @@
 
 export const appMenuParams = {
 	options: [
-		{ id: "past-24hr", label: "Volume Past 24hr", to: "/coinviz/#/24hrvolume" },
+		{ id: "past-24hr", label: "Volume Past 24hr", to: "/#/24hrvolume" },
 		// { id: "normalized", label: "Normalized Price", to: "/normalized" },
 		// {id: "coin-info", label: "Coin Info", to: "/coininfoapp"},
-		{ id: "coin-quote", label: "Coin Quote", to: "/coinviz/#/coinquote" },
+		{ id: "coin-quote", label: "Coin Quote", to: "/#/coinquote" },
 	],
 };
 
