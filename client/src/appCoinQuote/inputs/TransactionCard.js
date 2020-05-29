@@ -73,8 +73,6 @@ export const TransactionCard = props => {
 	const classes = useStyles(props);
 
 	const calculateCardData = (card) => {
-		// axios.post("https://localhost:5000/")
-
 		getApiData(card)
 			.then(res => {
 				const id = uuidv4();

@@ -1,11 +1,12 @@
-import * as d3 from 'd3';
-
-const api = process.env.REACT_APP_API_CC;
+import axios from "axios";
 
 export const getApiData = async (cryptoList, fiatList) => {
-	return d3.json(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${Object.keys(cryptoList).join(',')}&tsyms=${Object.keys(fiatList).join(',')}&api_key=${api}`)
+	return axios.post("http://localhost:5000/getvolume24hr", {
+			cryptoList,
+			fiatList
+		})
 		.then(res => {
-			const data = res.RAW;
+			const data = res.data.RAW;
 			// clean/rearrange/filter data
 			let revData = [];
 
@@ -28,7 +29,6 @@ export const getApiData = async (cryptoList, fiatList) => {
 						]
 				});
 			});
-			console.log('imported data');
-			return revData
+			return revData;
 		});
 };
