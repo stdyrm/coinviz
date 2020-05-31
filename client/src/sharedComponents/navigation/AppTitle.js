@@ -10,6 +10,11 @@ export const AppTitle = (props) => {
 	const { title, variant, align, divider, href, classes, innerProps } = props;
 
 	const useStyles = makeStyles((theme) => ({
+		root: {
+			display: "flex",
+			flexDirection: "row",
+			alignContent: "center",
+		},
 		typography: {
 			...theme.typography.title
 		},
@@ -22,7 +27,11 @@ export const AppTitle = (props) => {
 	const defaultClasses = useStyles();
 
 	return (
-		<>
+		<React.Fragment 
+			className={clsx(defaultClasses.root, classes.root)}
+			{...innerProps.root}
+		>
+			{props.children}
 			<Typography 
 				className={clsx(defaultClasses.typography, classes.typography)} 
 				align={align ? align : "left"}
@@ -43,7 +52,7 @@ export const AppTitle = (props) => {
 					{...innerProps.divider} 
 				/>
 			}
-		</>
+		</React.Fragment>
 	)
 };
 
@@ -65,10 +74,12 @@ AppTitle.propTypes = {
 
 AppTitle.defaultProps = {
 	classes: {
+		root: {},
 		typography: {},
 		divider: {}
 	},
 	innerProps: {
+		root: {},
 		typography: {},
 		divider: {}
 	},

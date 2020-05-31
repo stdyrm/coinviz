@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const LabelsAggregated = (props) => {
-	const { labelParams, wrapper, bounds } = props;
+	const { data, labelParams, wrapper, bounds } = props;
 	const { xLabel, yLabel } = labelParams;
 	const { margin } = wrapper;
 	const { height, width } = bounds;
@@ -36,7 +36,7 @@ export const LabelsAggregated = (props) => {
 			<text
 				className={classes.chartAxis}
 				textAnchor="middle"
-				transform={mqdSmall 
+				transform={mqdSmall || data.length > 6
 					? `translate(${margin.left + width / 2}, ${margin.top + height + 65})` 
 					: `translate(${margin.left + width / 2}, ${margin.top + height + 40})`
 				}

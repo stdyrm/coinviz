@@ -3,7 +3,6 @@ import * as d3 from "d3";
 import PropTypes from "prop-types";
 
 // components
-import { AppTitle } from "../../sharedComponents/navigation/AppTitle";
 import { BarsAggregated } from "./BarsAggregated";
 import { LabelsAggregated } from "./LabelsAggregated";
 
@@ -15,13 +14,13 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { chartParamsAggBar, labelParamsAggBar } from "../appParams";
 
 const wrapper = {
-	wrapperWidth: window.innerWidth * .9,
-	wrapperHeight: window.innerHeight * .8,
+	wrapperWidth: window.innerWidth * .6,
+	wrapperHeight: window.innerHeight * .6,
 	margin: {
 		top: 10,
-		right: 20,
+		right: window.innerWidth * .1,
 		bottom: 80,
-		left: 80,
+		left: window.innerWidth * .15,
 	},
 };
   
@@ -34,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 	componentWrapper: {
 		height: wrapper.wrapperHeight,
 		width: "100%",
+		position: "relative",
 	},
 	sectionTitle: {
 		marginTop: theme.spacing(2),
@@ -41,17 +41,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 	chartWrapper: {
 		width: "100%",
-		height: "85%",
-		position: "relative",
+		height: "100%",
+		position: "absolute",
 	},
 	chartBounds: {
-		position: "relative",
+		// position: "absolute",
 		width: "100%",
 		height: "100%",
-	},
-	xTick: {
-		fontSize: "1rem",
-		fontWeight: 600,
 	},
 }));
 
@@ -90,26 +86,14 @@ export const ChartAggregated = (props) => {
 		if (data) {
 
 			// responsive width
-			const resWidth = mqdSmall ? width : width * .5;
-			const resPadding = mqdSmall ? .1 : .4;
+			const resWidth = mqdSmall ? width : data.length < 3 ? width * 0.7 : width;
+			const resPadding = mqdSmall || data.length > 6 ? .1 : .4;
 
 			// scales
 			const xScale = d3.scaleBand()
 				.domain(data.map(d => d[xParam.selected]))
-
-			if (data.length < 3) {
-				xScale
-					.range([0, resWidth * .5])
-					.padding(resPadding);
-			} else if (data.length < 5) {
-				xScale
-					.range([0, resWidth * .8])
-					.padding(resPadding);
-			} else {
-				xScale
-					.range([0, width])
-					.padding(resPadding);
-			}
+				.range([0, resWidth])
+				.padding(resPadding);
 
 			const yScale = d3.scaleLinear()
 				.domain([-100, 100])
@@ -126,7 +110,7 @@ export const ChartAggregated = (props) => {
 
 			const xAxis = d3.select(xAxisRef.current)
 
-			if (mqdSmall) {
+			if (mqdSmall || data.length > 6) {
 				xAxis
 					.call(xAxisGenerator)
 					.selectAll("text")
@@ -139,8 +123,9 @@ export const ChartAggregated = (props) => {
 				xAxis
 					.call(xAxisGenerator)
 					.selectAll("text")
-						.attr("class", classes.xTick)
 						.style("text-anchor", "middle")
+						.style("fontSize", ".9rem")
+						.style("fontWeight", 600)
 						.attr("y", height / 2)
 			}
 
@@ -150,22 +135,20 @@ export const ChartAggregated = (props) => {
 
 	return (
 		<Grid container className={classes.componentWrapper}>
-			<AppTitle 
-				title="Base-quote profit/loss"
-				divider="none"
-				variant="h6"
-				classes={{
-					typography: classes.sectionTitle
-				}}
-			/>
 			<svg 
 				ref={svgRef} 
 				id="wrapper" 
 				className={classes.chartWrapper}
 				viewBox={`0 0 ${wrapperWidth} ${wrapperHeight}`}
+				transform="rotate(90deg)"
 			>
 				{data && data.length > 0
-					&& <LabelsAggregated wrapper={wrapper} bounds={bounds} labelParams={labelParamsAggBar} />
+					&& <LabelsAggregated 
+						data={data}
+						wrapper={wrapper} 
+						bounds={bounds} 
+						labelParams={labelParamsAggBar} 
+					/>
 				}
 				<g 
 					id="bounds"

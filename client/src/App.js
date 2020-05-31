@@ -12,6 +12,11 @@ import { ThemeContext } from "./sharedResources/context/ThemeContext";
 import { CssBaseline } from '@material-ui/core';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { theme, getTheme } from './sharedResources/style/theme';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { faCalculator, faChartBar, faTable, faFileInvoice } from "@fortawesome/free-solid-svg-icons";
+
+library.add(fab, faCalculator, faChartBar, faTable, faFileInvoice);
 
 const useStyles = makeStyles((theme) => ({
 	app: {

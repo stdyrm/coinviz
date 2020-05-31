@@ -132,8 +132,7 @@ EnhancedTableHead.propTypes = {
 
 const useToolbarStyles = makeStyles(theme => ({
     root: {
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(1),
+		minHeight: 0
     },
     highlight:
         theme.palette.type === "light"
@@ -158,10 +157,10 @@ const EnhancedTableToolbar = props => {
         <Toolbar
             className={clsx(classes.root, {
                 [classes.highlight]: numSelected > 0,
-            })}
-        >
-			<AppTitle title="Transactions" variant="h6" divider="none" />
-            {numSelected > 0 && (
+			})}
+			disableGutters
+		>            
+			{numSelected > 0 && (
                 <Typography
                     className={classes.title}
                     color="inherit"
@@ -191,6 +190,8 @@ EnhancedTableToolbar.propTypes = {
 
 const useStyles = makeStyles(theme => ({
     root: {
+		width: "100%",
+		height: "100%"
     },
     paper: {
     },
@@ -279,7 +280,6 @@ export const TransactionTable = (props) => {
 
     return (
         <div className={classes.root}>
-            <Paper className={classes.paper} square>
 				<EnhancedTableToolbar 
 					numSelected={selected.length} 
 					handleDeleteRow={handleDeleteRow}
@@ -453,7 +453,6 @@ export const TransactionTable = (props) => {
                     onChangePage={handleChangePage}
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
-            </Paper>
-        </div>
+		</div>
     );
 }

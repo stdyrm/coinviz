@@ -21,7 +21,7 @@ export const convertToReadable = (trans) => {
 		weightedAverageCost: Intl.NumberFormat(trans.quoteUnits, { style: "currency", currency: trans.quoteUnits, }).format(trans.weightedAverageCost),
 	};
 
-	Object.keys(trans).forEach(k => {
+	Object.keys(trans).forEach(k => {		
 		if (Object.keys(converter).includes(k)) {
 			readableTrans[k] = converter[k];
 		} else {

@@ -6,7 +6,8 @@ const lightTheme = {
 		type: "light",
 		primary: {
 			main: "#00ccb9",
-			contrastText: "#3c3c3c",
+			// contrastText: "#3c3c3c",
+			contrastText: "#4F4F4F",
 		},
 		secondary: {
 			main: "#f93b32",
@@ -16,7 +17,8 @@ const lightTheme = {
 			
 		},
 		text: {
-			primary: "#3c3c3c",
+			// primary: "#3c3c3c",
+			primary: "#4F4F4F",
 		},
 	},
 };
@@ -40,7 +42,7 @@ const darkTheme = {
 			primary: "#fff",
 		},
 	},
-}
+};
 
 export const theme = createMuiTheme({
 	typography: {

@@ -34,7 +34,7 @@ export const aggregateTransactions = transactionArray => {
                         (pivot[basePair].quoteQty + trans.quoteQty)) *
                     100,
             };
-        }
+		}
     });
 
     return pivot;

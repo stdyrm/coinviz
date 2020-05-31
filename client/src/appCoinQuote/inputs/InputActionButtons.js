@@ -6,6 +6,7 @@ import { IconButton, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles(theme => ({
     buttonContainer: {
@@ -15,7 +16,8 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         ...theme.actionButton,
-        color: theme.palette.primary.main,
+		color: theme.palette.primary.main,
+		fontSize: "2rem",
         "&:hover": {
             backgroundColor: "transparent",
             color: theme.palette.primary.light,
@@ -37,9 +39,9 @@ export const InputActionButtons = props => {
                 <IconButton
                     id="addToTableButton"
                     className={classes.button}
-                    onClick={handleSubmit}
+					onClick={handleSubmit}
                 >
-                    <PlaylistAddIcon />
+                    <AddIcon fontSize="large" />
                 </IconButton>
             </Tooltip>
             <Tooltip title="Clear">
@@ -48,7 +50,7 @@ export const InputActionButtons = props => {
                     className={classes.button}
                     onClick={handleClear}
                 >
-                    <ClearIcon />
+                    <ClearIcon fontSize="large" />
                 </IconButton>
             </Tooltip>
         </div>
